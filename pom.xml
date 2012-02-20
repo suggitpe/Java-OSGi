@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+    <!-- high level main project details -->
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>org.suggs.osgi</groupId>
+    <artifactId>suggs-osgi-parent</artifactId>
+    <packaging>pom</packaging>
+    <name>Suggs OSGi parent</name>
+    <version>1.0-SNAPSHOT</version>
+    <description>Generic maven config for OSGi projects</description>
+    <url>http://www.suggs.org.uk</url>
+    <inceptionYear>2007</inceptionYear>
+
+    <properties>
+        <log4j.version>1.2.16</log4j.version>
+        <slf4j.version>1.6.1</slf4j.version>
+    </properties>
+
+    <!-- team developers -->
+    <developers>
+        <developer>
+            <id>suggitpe</id>
+            <name>Peter Suggitt</name>
+            <email>me@suggs.org.uk</email>
+            <roles>
+                <role>Design and Development</role>
+            </roles>
+            <timezone>0</timezone>
+        </developer>
+    </developers>
+
+    <!-- here we define our own organsation (entered into the jar/ear manifests) -->
+    <organization>
+        <name>suggs.org</name>
+    </organization>
+
+    <!-- This links up the main pom to the module poms -->
+    <modules>
+        <module>osgi-tools</module>
+        <module>runtimes</module>
+        <module>sandbox</module>
+    </modules>
+
+    <build>
+        <testResources>
+            <testResource>
+                <directory>src/test/resources</directory>
+                <filtering>false</filtering>
+                <includes>
+                    <include>**/*.xml</include>
+                    <include>**/*.xsl</include>
+                    <include>**/*.xsd</include>
+                    <include>**/*.sql</include>
+                    <include>**/*.html</include>
+                    <include>**/*.properties</include>
+                    <include>**/*.story</include>
+                </includes>
+            </testResource>
+            <testResource>
+                <!-- This is needed so that the spring_stories can be used within the jbehave test exec -->
+                <directory>src/test/java</directory>
+                <filtering>false</filtering>
+                <includes>
+                    <include>**/*.story</include>
+                    <include>**/*.html</include>
+                </includes>
+            </testResource>
+        </testResources>
+
+        <pluginManagement>
+            <plugins>
+                <!-- COMPILER PLUGIN -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>2.3.2</version>
+                    <configuration>
+                        <source>1.6</source>
+                        <target>1.6</target>
+                    </configuration>
+                </plugin>
+
+                <!-- SUREFIRE PLUGIN -->
+                <!-- This has been edited such that all standard tests are executed in the test cycle, whereas Integration 
+                    Tests are executed after the package phase. -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <version>2.12</version>
+                    <configuration>
+                        <trimStackTrace>false</trimStackTrace>
+                        <argLine>${test.jvm.args}</argLine>
+                        <useSystemClassLoader>true</useSystemClassLoader>
+                        <includes>
+                            <include>**/*Test.java</include>
+                        </includes>
+                    </configuration>
+                </plugin>
+
+                <!-- SONAR PLUGIN -->
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>sonar-maven-plugin</artifactId>
+                    <version>2.0</version>
+                </plugin>
+
+            </plugins>
+        </pluginManagement>
+
+        <plugins>
+        </plugins>
+    </build>
+
+    <repositories>
+    </repositories>
+
+    <!-- this is where we define the location of standard and local Maven plugins -->
+    <pluginRepositories>
+    </pluginRepositories>
+
+    <!-- this is where we define the high level Scribe dependencies (ie those that are not project specific) -->
+    <dependencies>
+        <!-- main compile time dependencies -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-all</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <!-- This is where we define all of the application dependencies version requirements -->
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>junit</groupId>
+                <artifactId>junit</artifactId>
+                <version>4.8.2</version>
+            </dependency>
+            <dependency>
+                <groupId>org.mockito</groupId>
+                <artifactId>mockito-all</artifactId>
+                <version>1.9.0</version>
+            </dependency>
+
+            <!-- external jars -->
+            <dependency>
+                <groupId>log4j</groupId>
+                <artifactId>log4j</artifactId>
+                <version>${log4j.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-api</artifactId>
+                <version>${slf4j.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-log4j12</artifactId>
+                <version>${slf4j.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.osgi</groupId>
+                <artifactId>org.osgi</artifactId>
+                <version>3.0</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.felix</groupId>
+                <artifactId>org.apache.felix.framework</artifactId>
+                <version>3.2.2</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.felix</groupId>
+                <artifactId>org.apache.felix.main</artifactId>
+                <version>3.2.2</version>
+            </dependency>
+            <dependency>
+                <groupId>org.osgi</groupId>
+                <artifactId>org.osgi.core</artifactId>
+                <version>4.3.0</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.felix</groupId>
+                <artifactId>org.apache.felix.shell</artifactId>
+                <version>1.4.2</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.felix</groupId>
+                <artifactId>org.apache.felix.shell.tui</artifactId>
+                <version>1.4.1</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.felix</groupId>
+                <artifactId>org.apache.felix.bundlerepository</artifactId>
+                <version>1.6.6</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+</project>

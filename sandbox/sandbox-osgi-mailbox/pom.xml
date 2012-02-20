@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+    <parent>
+        <artifactId>suggs-parent</artifactId>
+        <groupId>org.suggs</groupId>
+        <relativePath>../build</relativePath>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+
+    <modelVersion>4.0.0</modelVersion>
+    <artifactId>sandbox-osgi-mailbox-parent</artifactId>
+    <packaging>pom</packaging>
+    <name>Sandbox OSGI Mailbox Parent</name>
+
+    <modules>
+        <module>mailbox_api</module>
+        <module>mailbox_fixed</module>
+        <module>mailbox_file</module>
+        <module>mailbox_db</module>
+        <module>mailbox_gui</module>
+        <module>message_counter</module>
+    </modules>
+
+    <dependencies> 
+        <dependency>
+            <groupId>org.apache.felix</groupId>
+            <artifactId>org.apache.felix.framework</artifactId>
+            <scope>compile</scope>
+        </dependency>
+    </dependencies>
+</project>

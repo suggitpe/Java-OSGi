@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+    <parent>
+        <artifactId>sandbox-osgi-mailbox-parent</artifactId>
+        <groupId>org.suggs</groupId>
+        <relativePath>..</relativePath>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+
+    <modelVersion>4.0.0</modelVersion>
+    <artifactId>sandbox-osgi-message-counter</artifactId>
+    <packaging>bundle</packaging>
+    <name>Sandbox OSGI Mailbox - Message Counter</name>
+
+    <build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<configuration>
+					<excludes> 
+					</excludes>
+				</configuration>
+			</plugin>
+        
+            <!-- felix plugin for osgi bundles -->
+            <plugin>
+                <groupId>org.apache.felix</groupId>
+                <artifactId>maven-bundle-plugin</artifactId>
+                <version>2.3.7</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <instructions>
+                        <Bundle-Activator>org.suggs.sandbox.osgi.mailbox.messagecounter.MessageCounterWithTrackerActivator</Bundle-Activator>
+                        <Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
+                        <Private-Package>org.suggs.sandbox.osgi.mailbox.messagecounter</Private-Package>
+                        <Export-Package></Export-Package>
+                        <!--
+                        <Bundle-Activator></Bundle-Activator>
+                        <Bundle-SymbolicName></Bundle-SymbolicName>
+                        <Export-Package></Export-Package>
+                        <Private-Package></Private-Package>
+                        <Import-Package></Import-Package>
+                        <Include-Resource></Include-Resource>
+                        <Bundle-Version>${pom.version}</Bundle-Version>
+                        <Bundle-Name>${pom.name}</Bundle-Name>
+                        <Bundle-Description>${pom.description}</Bundle-Description>
+                        <Bundle-License>${pom.licenses}</Bundle-License>
+                        <Bundle-Vendor>${pom.organization.name}</Bundle-Vendor>
+                        <Bundle-DocURL>${pom.organization.url}</Bundle-DocURL>
+                        -->
+                    </instructions>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.suggs</groupId>
+            <artifactId>sandbox-osgi-mailbox-api</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
+    </dependencies>
+</project>
+
+

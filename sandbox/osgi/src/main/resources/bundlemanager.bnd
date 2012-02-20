@@ -1,0 +1,3 @@
+# helloworld.bnd
+Private-Package: org.suggs.sandbox_osgi.tutorial.basics.bundlemanager
+Bundle-Activator: org.suggs.sandbox_osgi.tutorial.basics.bundlemanager.BundleManagerActivator
